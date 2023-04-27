@@ -4,10 +4,10 @@ const fs = require('fs');
 const path = require('path');
 
 // const Dir = require('./modules/Dir')
-const parse = require('./modules/music')
 
-// parse('https://yandex.ru/images/search?from=tabbar&img_url=http%3A%2F%2Fpro-dachnikov.com%2Fuploads%2Fposts%2F2021-10%2F1633509515_3-p-gus-domashnii-ptitsi-foto-7.jpg');
-parse('https://ru2.hitmo.top/genres/6988');
+const Music = require('./modules/music')
+const music = new Music('./congratulations', 'https://ru2.hitmo.top/genres/6988','./logs/music.log')
+music.download('Музыка нас связала (Dj Miv Remix)')
 
 // var now = new Date();
 // const dir =  './congratulations' 

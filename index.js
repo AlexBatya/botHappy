@@ -3,23 +3,22 @@ const color = require('colors');
 const fs = require('fs');
 const path = require('path');
 
-// const Dir = require('./modules/Dir')
+var Music = require('./modules/music')
+const Dir = require('./modules/Dir')
 
-const Music = require('./modules/music')
-const music = new Music('./congratulations', 'https://ru2.hitmo.top/genres/6988','./logs/music.log')
+const setting = JSON.parse(fs.readFileSync('./settings.json'));
+
+const {congratulations, logs, data} = setting.direction;
+const {link} = setting.site;
+
+const dirHappy = new Dir(congratulations, now, `${logs}/createDir.log`)
+var now = new Date();
+const music = new Music(congratulations, link[0],`${logs}/music.log`)
+
 music.download('Музыка нас связала (Dj Miv Remix)')
 
-// var now = new Date();
-// const dir =  './congratulations' 
-// const logs = './logs'
 
-// const token = '6136624084:AAHIPfxnxhyVab0pMcnUSQtUqeBmBUeSQVg';
-
-// const bot = new telegram_bot(token, {polling: true });
-
-
-// const dirHappy = new Dir(dir,now,'./logs/createDir.log')
-// dirHappy.creat();
+const bot = new telegram_bot(setting.telegram.token, {polling: true });
 
 
 // bot.onText(/\/start/, msg =>{

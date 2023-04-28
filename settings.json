@@ -1,0 +1,16 @@
+{
+    "telegram":{
+        "token": "6136624084:AAHIPfxnxhyVab0pMcnUSQtUqeBmBUeSQVg"
+    },
+    "direction": {
+        "congratulations" : "./congratulations",
+        "logs": "./logs",
+        "data": "./data"
+    },
+    "site": {
+        "link": [
+            "https://ru2.hitmo.top/genres/6988",
+            "https://music.radio.lol/"
+        ] 
+    }
+}

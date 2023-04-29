@@ -1,40 +1,40 @@
-const telegram_bot = require('node-telegram-bot-api');
+const gtts = require('node-gtts')('ru');
 const color = require('colors');
 const fs = require('fs');
 const path = require('path');
+const telegram_bot = require('node-telegram-bot-api');
+
+var Admin = require('./bot/index')
 
 var Music = require('./modules/music')
-const Dir = require('./modules/Dir')
+var Dir = require('./modules/Dir')
+var TextToSpeech = require('./modules/textToSpeech')
 
 const setting = JSON.parse(fs.readFileSync('./settings.json'));
 
 const {congratulations, logs, data} = setting.direction;
 const {link} = setting.site;
 
-const dirHappy = new Dir(congratulations, now, `${logs}/createDir.log`)
 var now = new Date();
+const dirHappy = new Dir(congratulations, now, `${logs}/createDir.log`)
 const music = new Music(congratulations, link[0],`${logs}/music.log`)
+const textToSpeech = new TextToSpeech(congratulations,`./${logs}/textToSpeech.log`, now) 
 
-music.download('Музыка нас связала (Dj Miv Remix)')
+// textToSpeech.speech('bro','', 'Выеби себя в жопу')
+
+
+// sendmes().then(()=>{
+//     return console.log('Привет')
+// })
 
 
 const bot = new telegram_bot(setting.telegram.token, {polling: true });
 
+const admin = new Admin(bot, setting.telegram.token)
 
-// bot.onText(/\/start/, msg =>{
-//     const {id: id, first_name: userName} = msg.chat;
-//     const newDir = dir + '/' + 'newSpeech' + `${now.getHours()}_${now.getMinutes()}_${now.getSeconds()}`;
-//     fs.mkdirSync(newDir);
-//     const readDir = fs.readdirSync(dir)
-//     for(let i = 0; i > readDir.length; i++){
-//         if(readDir[i] === path.basename(newDir)){
-//             bot.sendMessage(id, `Папка успешно создана в ${now.getHours()}_${now.getMinutes()}_${now.getSeconds()}`)
-//         }
-//         else{
-//             bot.sendMessage(id, `Папка не создана`);
-//         }
-//     }
-// })
+admin.update(bot);
 
+console.log(color.green('Бот, запущен'));
 
-console.log(color.green('бот запущен'));
+// music.download('Музыка нас связала (Dj Miv Remix)')
+

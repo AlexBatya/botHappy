@@ -14,16 +14,15 @@ module.exports = class TextToSpeech{
     }
     speech(name, link, congratulations){
         try{
-            
-            var filepath = path.join(__dirname, `../${this.dir}/${name}.mp3`);
-            
-            gtts.save(filepath, congratulations, () => {
-                console.log('Создание трека поздравления выполнено ' + color.green('УСПЕШНО'));
-                fs.appendFileSync(this.log, '\n Создание трека поздравления выполнено ' + color.green('УСПЕШНО'));
-                // res(`./${this.dir}/${name}.mp3`)
+            return new Promise(res => {
+                var filepath = path.join(__dirname, `../${this.dir}/${name}.mp3`);
+        
+                gtts.save(filepath, congratulations, () => {
+                    console.log('Создание трека поздравления выполнено ' + color.green('УСПЕШНО'));
+                    fs.appendFileSync(this.log, '\n Создание трека поздравления выполнено ' + color.green('УСПЕШНО'));
+                    res()
+                })
             })
-            
-
         }
         catch(err){
             fs.appendFileSync(this.log, `\n ${this.now} Создание трека поздравления выполнено ` + color.red('БЕЗУСПЕШНО') + '\n');

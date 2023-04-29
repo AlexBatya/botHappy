@@ -104,17 +104,9 @@ module.exports = class Admin{
                 bot.sendMessage(speechList.chat_id, 'Напишите поздравление в чат') 
                 bot.onText(/\p{L}/u, msg =>{
                     (async () => {
-                        const sendmes = () => {
-                            return new Promise(res => {
-                                textToSpeech.speech('voice','', msg.text)
-                                res();
-                            })
-                        }
-                        await sendmes()
-                        setTimeout(async () => {
-                            await bot.sendDocument(msg.chat.id, './data/voice.mp3')
-                            bot.sendMessage(msg.chat.id, 'Аудео фаел сохранён')
-                        }, 2000);
+                        await textToSpeech.speech('voice','', msg.text)
+                        await bot.sendDocument(msg.chat.id, './data/voice.mp3')
+                        bot.sendMessage(msg.chat.id, 'Аудео фаел сохранён')
                     })();
                 })
             }
